@@ -10,19 +10,24 @@ document.body.onmousemove = setLeftButtonState;
 document.body.onmouseup = setLeftButtonState;
 
 // create grid
-let numOfRows = prompt("Enter num of cells please: ");
-let numOfCells = numOfRows* numOfRows;
 const grid = document.querySelector('.gameGrid');
-grid.style.gridTemplateColumns = `repeat(${numOfRows}, 1fr)`;
+const resetButton = document.querySelector('.reset');
+resetButton.addEventListener('click', resetGrid);
+populateGrid(20);
 
-
-for (i = 0; i < numOfCells; i++) {
-    let ele = document.createElement("div");
-    ele.classList.add("cell");
-    ele.draggable = "false";
-    ele.addEventListener('mousemove', paintBlack);
-    grid.appendChild(ele);
+function populateGrid(rows) {    
+    let numOfCells = rows*rows;    
+    grid.style.gridTemplateColumns = `repeat(${rows}, 1fr)`;    
+    
+    for (i = 0; i < numOfCells; i++) {
+        let ele = document.createElement("div");
+        ele.classList.add("cell");
+        ele.draggable = "false";
+        ele.addEventListener('mousemove', paintBlack);
+        grid.appendChild(ele);
+    }
 }
+
 
 function paintBlack(ev) {
     if (leftMouseButtonOnlyDown) {
@@ -35,4 +40,6 @@ function resetGrid() {
     while (grid.firstChild) {
         grid.firstChild.remove();
     }
+    let numOfRows = prompt("Please enter number of rows: ");
+    populateGrid(numOfRows);
 }
