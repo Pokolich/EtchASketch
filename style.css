@@ -10,7 +10,7 @@
     border: 0.5px solid black;
 }
 
-.cell:hover {
+.blackBrush {
     background-color: black;
 }
 
