@@ -12,7 +12,9 @@ document.body.onmouseup = setLeftButtonState;
 // create grid
 const grid = document.querySelector('.gameGrid');
 const resetButton = document.querySelector('.reset');
+const clearButton = document.querySelector('.clear');
 resetButton.addEventListener('click', resetGrid);
+clearButton.addEventListener('click', clearGrid);
 populateGrid(20);
 
 function populateGrid(rows) {    
@@ -22,7 +24,10 @@ function populateGrid(rows) {
     for (i = 0; i < numOfCells; i++) {
         let ele = document.createElement("div");
         ele.classList.add("cell");
-        ele.draggable = "false";
+        ele.draggable = false;
+        ele.onclick = (e) => {
+            e.target.classList.add('blackBrush');
+        }; 
         ele.addEventListener('mousemove', paintBlack);
         grid.appendChild(ele);
     }
@@ -42,4 +47,9 @@ function resetGrid() {
     }
     let numOfRows = prompt("Please enter number of rows: ");
     populateGrid(numOfRows);
+}
+
+function clearGrid() {
+    let cells = grid.querySelectorAll('.cell');
+    cells.forEach(cell =>  cell.classList.remove('blackBrush'));
 }
